@@ -8,7 +8,7 @@ object camion {
 		cosas.add(unaCosa)
 	}
 	method validarCarga(cosa){
-		if (cosas.filter({objeto => objeto == cosa}).size()>0){
+		if (!cosas.filter({objeto => objeto == cosa}).isEmpty()){
 			self.error("El objeto ya esta cargado")
 		}
 	}
@@ -17,7 +17,7 @@ object camion {
 	  	cosas.remove(cosa)
 	}
 	method validarDescarga(cosa){
-		if (cosas.filter({objeto => objeto == cosa}).size()==0){
+		if (cosas.filter({objeto => objeto == cosa}).isEmpty()){
 			self.error("El objeto no esta cargado")
 		}
 	}
@@ -25,7 +25,7 @@ object camion {
 	  return cosas.filter({objeto => objeto.peso() % 2 == 0}).size() == cosas.size()
 	}
 	method hayAlgunoQuePesa(cantidad){
-	  return cosas.filter({objeto => objeto.peso() == cantidad}).size() > 0				
+	  return !cosas.filter({objeto => objeto.peso() == cantidad}).isEmty()			
 	}
 
 	method peso(){
@@ -36,9 +36,9 @@ object camion {
 		return self.peso() > 2500
 	}
 	method hayAlgunoDePeligrosidad(nivel){
-		if (cosas.filter({objeto => objeto.nivelPeligrosidad() == nivel}).size() == 0){
+		if (cosas.filter({objeto => objeto.nivelPeligrosidad() == nivel}).isEmpty()){
 			self.error("No hay ningun objeto con ese nivel de peligrosidad")
-		}else {
+		} else {
 			return cosas.filter({objeto => objeto.nivelPeligrosidad() == nivel})
 		}
 		
@@ -53,20 +53,20 @@ object camion {
 	}
 
 	method puedeCircularEnRuta(nivelDePeligrosidad){
-		return !self.estaExcedido() && self.peligrosidadMayorQue(nivelDePeligrosidad).size() == 0
+		return self.estaExcedido() && self.peligrosidadMayorQue(nivelDePeligrosidad).isEmpty()
 	}
 	
 	method tieneAlgoQuePesaEntre (cantidad1, cantidad2){
-		return cosas.filter({objeto => objeto.peso() >= cantidad1 && objeto.peso() <= cantidad2}).size() > 0
+		return cosas.filter({objeto => objeto.peso() >= cantidad1 && objeto.peso() <= cantidad2}).isEmpty()
 	}
 	method cosaMasPesada(){
-		if (self.estaVacio()){
+		if (self.estaVacio(cosas)){
 			self.error("El camion esta vacio")
 		}
 		return cosas.max({objeto => objeto.peso()})
 	}
-	method estaVacio(){
-		return cosas.size() == 0
+	method estaVacio(lista){
+		return lista.isEmpty()
 	}
 	method pesos(){
 		return cosas.map({objeto => objeto.peso()})

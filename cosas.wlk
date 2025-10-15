@@ -3,17 +3,15 @@ object knightRider {
 	var property bultos = 1
 	method peso() { return 500 }
 	method nivelPeligrosidad() { return peligrosidad }
-	method embalar(){
+	/*method embalar(){
 		peligrosidad = peligrosidad / 2
 		bultos += 2
 	}
 	method desembalar(){
 		peligrosidad = peligrosidad * 2
 		bultos -= 2
-	}
-	method accidente(){
-
-	}
+	}*/
+	method accidente(){}//no le afecta el choque
  }
 
  object arenaAGranel {
@@ -21,14 +19,14 @@ object knightRider {
 	var property bultos = 1
 	var property peso = 0
 	method nivelPeligrosidad() { return peligrosidad }
-	method embalar(){ 
+	/*method embalar(){ 
 		bultos += 2
 		peligrosidad = peligrosidad / 2
 	}
 	method desembalar(){
 		peligrosidad = peligrosidad * 2
 		bultos -= 2
-	}
+	}*/
 	method accidente() {
 		peso += 20
 	}
@@ -55,14 +53,14 @@ object knightRider {
 	method auto(){
 		return 1
 	}
-	method embalar(){
+	/*method embalar(){
 		peligrosidad = self.nivelPeligrosidad()/2
 		bultos += 2
 	}
 	method desembalar(){
 		peligrosidad = peligrosidad*2
 		bultos -= 2
-	}
+	}*/
 	method accidente(){
 		if (estado == self.auto()){
 			estado = self.robot()
@@ -88,14 +86,14 @@ object knightRider {
 			} 
 		}
 	}
-	method embalar(){ 
+	/*method embalar(){ 
 		peligrosidad = peligrosidad/2
 		bultos += 2
 	}
 	method desembalar(){ 
 		peligrosidad = peligrosidad*2
 		bultos -= 2
-	}
+	}*/
 	method accidente(){
 		if (self.cantidadLadrillos()>=12){
 			cantidadLadrillos -= 12
@@ -134,7 +132,7 @@ object knightRider {
 		return peligrosidad 
 	}
 	
-	method embalar(){ 
+	/*method embalar(){ 
 		peligrosidad = peligrosidad/2 
 		bultos += 2
 	 }
@@ -142,7 +140,7 @@ object knightRider {
 	method desembalar(){ 
 		peligrosidad = peligrosidad*2 
 		bultos -= 2
-	}
+	}*/
 	method accidente(){
 		estaConMisiles = false
 	}
@@ -153,14 +151,14 @@ object knightRider {
 	var peligrosidad = 200
 	var property peso = 0  
 	method nivelPeligrosidad() { return peligrosidad }
-	method embalar(){ 
+	/*method embalar(){ 
 		peligrosidad = peligrosidad/2 
 		bultos += 2
 	}
 	method desembalar(){ 
 		peligrosidad = peligrosidad*2 
 		bultos -= 2
-	}
+	}*/
 	method accidente(){
 		peso += 15
 	}
@@ -175,7 +173,7 @@ object knightRider {
 		return 100 + cosas.sum({objeto => objeto.peso()})
 	}
 	method nivelPeligrosidad() {
-		if (cosas.size() == 0) {
+		if (cosas.isEmpty()) {
 			return 0
 		} else {
 			return (cosas.max({objeto => objeto.nivelPeligrosidad()}).nivelPeligrosidad())
@@ -187,4 +185,10 @@ object knightRider {
 	method accidente(){
 		self.cosas().forEach{elemento => elemento.accidente()}
 	}
+ }
+ object embalajeDeSeguridad {
+   	var property objetoEmbalado = null
+	var property peso = objetoEmbalado.peso()
+	var property peligrosidad = objetoEmbalado.peso()
+	var property bultos = objetoEmbalado.bultos()+2   
  }
